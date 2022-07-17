@@ -38,6 +38,22 @@ export function isGameOver(board) {
 }
 
 export function makeMove(board, player) {
-    const move = prompt("Please enter a move in the format CR where C is column and R is row: ").split('');
-    board[parseInt(move[1])][parseInt(move[0])] = player;
+    if (player === 'X') {
+        const move = prompt("Please enter a move in the format CR where C is column and R is row: ").split('');
+        board[parseInt(move[1])][parseInt(move[0])] = player;
+    } else {
+        makeRandomMove(board, player);
+    }
+}
+
+function makeRandomMove(board, player) {
+    let randomColumnIndex;
+    let randomRowIndex;
+
+    do {
+        randomColumnIndex = Math.floor(Math.random() * 3);
+        randomRowIndex = Math.floor(Math.random() * 3);
+    } while (board[randomRowIndex][randomColumnIndex] !== ' ') {
+        board[randomRowIndex][randomColumnIndex] = player;
+    }
 }
