@@ -1,4 +1,5 @@
 import promptSync from 'prompt-sync';
+import { searchForBestMove } from "./ai.js";
 
 const prompt = promptSync();
 
@@ -30,7 +31,7 @@ export function isGameOver(board) {
         return true;
     }
 
-    if ((new Set([board[0][2], board[1][1], board[0][2]]).size === 1) && board[0][2] !== ' ') {
+    if ((new Set([board[0][2], board[1][1], board[2][0]]).size === 1) && board[0][2] !== ' ') {
         return true;
     }
 
@@ -43,7 +44,7 @@ export function findPossibleMoves(board) {
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board[i].length; j++) {
             if (board[i][j] === ' ') {
-                possibleMoveList.push(i.toString() + j.toString());
+                possibleMoveList.push(j.toString() + i.toString());
             }
         }
     }
@@ -51,23 +52,17 @@ export function findPossibleMoves(board) {
     return possibleMoveList;
 }
 
-export function makeMove(board, player) {
-    if (player === 'X') {
-        const move = prompt("Please enter a move in the format CR where C is column and R is row: ").split('');
-        board[parseInt(move[1])][parseInt(move[0])] = player;
-    } else {
-        makeRandomMove(board, player);
-    }
+export function makeHumanMove(board, player) {
+    const move = prompt("Please enter a move in the format CR where C is column and R is row: ").split('');
+    board[parseInt(move[1])][parseInt(move[0])] = player;
 }
 
-function makeRandomMove(board, player) {
-    let randomColumnIndex;
-    let randomRowIndex;
+export function makeAIMove(board, player) {
+    let move = searchForBestMove(board, player)
+    board[move[1]][move[0]] = player;
+}
 
-    do {
-        randomColumnIndex = Math.floor(Math.random() * 3);
-        randomRowIndex = Math.floor(Math.random() * 3);
-    } while (board[randomRowIndex][randomColumnIndex] !== ' ') {
-        board[randomRowIndex][randomColumnIndex] = player;
-    }
+export function getRandomMove(possibleMoves) {
+    let randomMoveIndex = Math.floor(Math.random() * possibleMoves.length);
+    return possibleMoves[randomMoveIndex].split('');
 }
