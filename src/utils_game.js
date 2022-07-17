@@ -37,6 +37,20 @@ export function isGameOver(board) {
     return false;
 }
 
+export function findPossibleMoves(board) {
+    const possibleMoveList = [];
+
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length; j++) {
+            if (board[i][j] === ' ') {
+                possibleMoveList.push(i.toString() + j.toString());
+            }
+        }
+    }
+
+    return possibleMoveList;
+}
+
 export function makeMove(board, player) {
     if (player === 'X') {
         const move = prompt("Please enter a move in the format CR where C is column and R is row: ").split('');
