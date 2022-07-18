@@ -53,7 +53,19 @@ export function findPossibleMoves(board) {
 }
 
 export function makeHumanMove(board, player) {
-    const move = prompt("Please enter a move in the format CR where C is column and R is row: ").split('');
+    const possibleMoves = findPossibleMoves(board);
+    let move;
+
+    do {
+        move = prompt("Please enter a move in the format CR where C is column and R is row: ");
+
+        if (possibleMoves.indexOf(move) === -1) {
+            console.log("\nInvalid move! Please try again.\n")
+        }
+    } while (possibleMoves.indexOf(move) === -1);
+
+    move = move.split('');
+
     board[parseInt(move[1])][parseInt(move[0])] = player;
 }
 
