@@ -1,17 +1,24 @@
-import { findPossibleMoves, getRandomMove, isGameOver } from "./utils_game.js";
+import { getPossibleMoves, flipPlayerToken, getRandomMove, checkResult } from "./utils_game.js";
 
-export function searchForBestMove(board, player) {
-    let trialBoard = JSON.parse(JSON.stringify(board));
-    const possibleMoves = findPossibleMoves(trialBoard);
+// Could implement strategy pattern for various search strategies
+// e.g. DFS, BFS, MiniMax, NegaMax, Alpha-Beta
+// Could add some code to benchmark these strategies
+
+export function searchForBestMove(board, playerToken, isAiTurn) {
+    let trialBoard = resetTrialBoard(board);
+    const possibleMoves = getPossibleMoves(trialBoard);
 
     for (let i = 0; i < possibleMoves.length; i++) {
         let move = possibleMoves[i].split('');
-        trialBoard[move[1]][move[0]] = player;
-        if (isGameOver(trialBoard)) {
+        trialBoard[move[1]][move[0]] = playerToken;
+        if (checkResult(trialBoard) !== false) {
             return move;
         }
-        trialBoard = JSON.parse(JSON.stringify(board));
+        trialBoard = resetTrialBoard(board);
     }
 
     return getRandomMove(possibleMoves);
+}
+function resetTrialBoard(board) {
+    return JSON.parse(JSON.stringify(board));
 }
