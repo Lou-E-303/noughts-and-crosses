@@ -6,11 +6,11 @@ let player = 'X'
 
 displayBoard(board);
 
-while (checkResult(board) !== 'X' && checkResult(board) !== 'O' && checkResult(board) !== ' ') {
+while (!("X O".includes(checkResult(board)))) {
     if (player === 'X') {
         makeHumanMove(board, player);
     } else {
-        makeAIMove(board, player);
+        makeAIMove(board, player, true);
     }
 
     player = (player === 'X' ? 'O' : 'X');

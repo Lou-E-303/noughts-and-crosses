@@ -11,14 +11,13 @@ export function searchForBestMove(board, playerToken, isAiTurn) {
     for (let i = 0; i < possibleMoves.length; i++) {
         let move = possibleMoves[i].split('');
         trialBoard[move[1]][move[0]] = playerToken;
-        if (checkResult(trialBoard) !== false) {
+        if ("X O".includes(checkResult(trialBoard))) {
             return move;
         }
         trialBoard = resetTrialBoard(board);
     }
-
-    return getRandomMove(possibleMoves);
 }
+
 function resetTrialBoard(board) {
     return JSON.parse(JSON.stringify(board));
 }

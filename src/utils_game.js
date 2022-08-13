@@ -89,6 +89,7 @@ export function makeAIMove(board, player) {
     let move = searchForBestMove(board, player, true);
     
     if (!move) {
+        console.warn("No best move found - making random move");
         move = getRandomMove(getPossibleMoves(board));
     }
     board[move[1]][move[0]] = player;
