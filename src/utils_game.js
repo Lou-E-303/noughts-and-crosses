@@ -86,10 +86,10 @@ export function makeHumanMove(board, player) {
 }
 
 export function makeAIMove(board, player) {
-    let move = searchForBestMove(board, player, true);
+    let move = searchForBestMove(board, player);
     
     if (!move) {
-        console.warn("No best move found - making random move");
+        console.warn("No best move found - making random move.");
         move = getRandomMove(getPossibleMoves(board));
     }
     board[move[1]][move[0]] = player;
@@ -100,15 +100,4 @@ export function getRandomMove(possibleMoves) {
         let randomMoveIndex = Math.floor(Math.random() * possibleMoves.length);
         return possibleMoves[randomMoveIndex].split('');
     }
-}
-
-export function flipPlayerToken(playerToken) {
-    if (playerToken === 'X') {
-        playerToken = 'O';
-    } else if (playerToken === 'O') {
-        playerToken = 'X';
-    } else {
-        throw "Unable to flip player token - token not recognised";
-    }
-    return playerToken;
 }
