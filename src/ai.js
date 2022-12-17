@@ -1,6 +1,8 @@
 import { getPossibleMoves, checkResult } from "./utils_game.js";
 
 export function searchForBestMove(board, playerToken) {
+    // TODO implement DFS minimax (properly!)
+
     let trialBoard = resetTrialBoard(board);
     const possibleMoves = getPossibleMoves(trialBoard);
 

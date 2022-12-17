@@ -1,8 +1,15 @@
 import { displayBoard } from "./utils_io.js";
-import {checkResult, generateEmptyBoard, makeHumanMove, makeAIMove} from "./utils_game.js";
+import {checkResult, generateEmptyBoard, makeHumanMove, makeAIMove, flipPlayer} from "./utils_game.js";
 
-let board = generateEmptyBoard();
-let player = 'X'
+//let board = generateEmptyBoard();
+//let player = 'X'
+
+// TEST
+
+let board = [['X', 'O', 'X'], ['X', 'O', 'O'], [' ', 'X', ' ']];
+let player = 'O';
+
+// TEST
 
 displayBoard(board);
 
@@ -13,7 +20,7 @@ while (!("X O".includes(checkResult(board)))) {
         makeAIMove(board, player, true);
     }
 
-    player = (player === 'X' ? 'O' : 'X');
+    player = flipPlayer(player);
     displayBoard(board);
 }
 

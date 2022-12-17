@@ -101,3 +101,7 @@ export function getRandomMove(possibleMoves) {
         return possibleMoves[randomMoveIndex].split('');
     }
 }
+
+export function flipPlayer(player) {
+    return (player === 'X' ? 'O' : 'X');
+}
