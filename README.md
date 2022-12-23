@@ -2,7 +2,7 @@
 
 ## Intro
 
-Solving noughts &amp; crosses (tic-tac-toe) in JavaScript.
+Solving noughts &amp; crosses (tic-tac-toe) in JavaScript using a depth-first minimax implementation.
 
 ## Run
 

@@ -6,15 +6,11 @@ export function searchForBestMove(board, playerToken) {
 
     const possibleMoves = getPossibleMoves(board);
 
-    // let moveScorePairs = {};
-
     for (let i = 0; i < possibleMoves.length; i++) {
         const move = possibleMoves[i].split('');
         board[move[1]][move[0]] = playerToken; // Make the move
-        let score = minimax(board, false);     // Call the minimax algorithm
+        let score = minimax(board, 0, false);     // Call the minimax algorithm
         board[move[1]][move[0]] = ' ';         // Unmake the move
-
-        // moveScorePairs[move] = score;
 
         if (score > bestScore) {
             bestScore = score;
@@ -23,13 +19,10 @@ export function searchForBestMove(board, playerToken) {
 
     }
 
-    // console.log(`Moves Considered: ${JSON.stringify(moveScorePairs).split(",")}`);
-    // console.log(`WINNING MOVE: ${bestMove}  SCORE: ${bestScore}`);
-
     return bestMove;
 }
 
-function minimax(board, isMaximisingPlayer) {
+function minimax(board, depth, isMaximisingPlayer) {
     const result = checkResult(board);
 
     if (result) {
@@ -43,7 +36,7 @@ function minimax(board, isMaximisingPlayer) {
         for (let i = 0; i < possibleMoves.length; i++) {
             const move = possibleMoves[i].split('');
             board[move[1]][move[0]] = 'O';     // Make the move
-            let score = minimax(board, false); // Call the minimax algorithm
+            let score = minimax(board, depth + 1, false); // Call the minimax algorithm
             board[move[1]][move[0]] = ' ';     // Unmake the move
             bestScore = Math.max(score, bestScore);
         }
@@ -57,7 +50,7 @@ function minimax(board, isMaximisingPlayer) {
         for (let i = 0; i < possibleMoves.length; i++) {
             const move = possibleMoves[i].split('');
             board[move[1]][move[0]] = 'X';    // Make the move
-            let score = minimax(board, true); // Call the minimax algorithm
+            let score = minimax(board, depth + 1, true); // Call the minimax algorithm
             board[move[1]][move[0]] = ' ';    // Unmake the move
             bestScore = Math.min(score, bestScore);
         }
@@ -67,7 +60,7 @@ function minimax(board, isMaximisingPlayer) {
 }
 
 const scores = {
-    "X": -1,
-    "O": 1,
+    "X": -10,
+    "O": 10,
     " ": 0
 };
