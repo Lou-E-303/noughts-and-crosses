@@ -1,5 +1,6 @@
 import promptSync from 'prompt-sync';
 import { searchForBestMove } from "./ai.js";
+import {convertDecimalMoveToCartesian} from "./utils_io.js";
 
 const prompt = promptSync();
 
@@ -71,18 +72,20 @@ export function getPossibleMoves(board) {
 export function makeHumanMove(board, player) {
     const possibleMoves = getPossibleMoves(board);
     let move;
+    let cartesianMove;
 
     do {
-        move = prompt("Please enter a move in the format CR where C is column and R is row: ");
+        move = prompt("Please enter a move as a number 1-9 where 1 is the top-left and 9 is the bottom-right of the board: ");
+        cartesianMove = convertDecimalMoveToCartesian(move);
 
-        if (possibleMoves.indexOf(move) === -1) {
-            console.log("\nInvalid move! Please try again.\n")
+        if (possibleMoves.indexOf(cartesianMove) === -1) {
+            console.log("\nInvalid move! Please try again.\n");
         }
-    } while (possibleMoves.indexOf(move) === -1);
+    } while (possibleMoves.indexOf(cartesianMove) === -1);
 
-    move = move.split('');
+    cartesianMove = cartesianMove.split('');
 
-    board[parseInt(move[1])][parseInt(move[0])] = player;
+    board[parseInt(cartesianMove[1])][parseInt(cartesianMove[0])] = player;
 }
 
 export function makeAIMove(board, player) {
