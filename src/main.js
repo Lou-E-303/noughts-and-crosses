@@ -1,15 +1,15 @@
 import { displayBoard } from "./utils_io.js";
 import {checkResult, generateEmptyBoard, makeHumanMove, makeAIMove, flipPlayer} from "./utils_game.js";
 
-//let board = generateEmptyBoard();
-//let player = 'X'
+let board = generateEmptyBoard();
+let player = 'X'
 
-// TEST
-
-let board = [['X', 'O', 'X'], ['X', 'O', 'O'], [' ', 'X', ' ']];
-let player = 'O';
-
-// TEST
+// // TEST
+//
+// let board = [['X', 'O', 'X'], ['X', 'O', 'O'], [' ', 'X', ' ']];
+// let player = 'O';
+//
+// // TEST
 
 displayBoard(board);
 
