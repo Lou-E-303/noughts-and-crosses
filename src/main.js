@@ -4,13 +4,6 @@ import {checkResult, generateEmptyBoard, makeHumanMove, makeAIMove, flipPlayer} 
 let board = generateEmptyBoard();
 let player = 'X'
 
-// // TEST
-//
-// let board = [['X', 'O', 'X'], ['X', 'O', 'O'], [' ', 'X', ' ']];
-// let player = 'O';
-//
-// // TEST
-
 displayBoard(board);
 
 while (!("X O".includes(checkResult(board)))) {

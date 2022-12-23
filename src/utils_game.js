@@ -86,7 +86,7 @@ export function makeHumanMove(board, player) {
 }
 
 export function makeAIMove(board, player) {
-    let move = searchForBestMove(board, player, true);
+    let move = searchForBestMove(board, player);
     
     if (!move) {
         console.warn("No best move found - making random move.");
