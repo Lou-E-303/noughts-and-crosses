@@ -47,7 +47,7 @@ export function checkResult(board) {
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board[i].length; j++) {
             if (board[i][j] === ' ') {
-                return false;
+                return undefined;
             }
         }
     }
@@ -72,27 +72,25 @@ export function getPossibleMoves(board) {
 export function makeHumanMove(board, player) {
     const possibleMoves = getPossibleMoves(board);
     let move;
-    let cartesianMove;
 
     do {
-        move = prompt("Please enter a move as a number 1-9 where 1 is the top-left and 9 is the bottom-right of the board: ");
-        cartesianMove = convertDecimalMoveToCartesian(move);
+        move = convertDecimalMoveToCartesian(prompt("Please enter a move as a number 1-9 where 1 is the top-left and 9 is the bottom-right of the board: "));
 
-        if (possibleMoves.indexOf(cartesianMove) === -1) {
+        if (possibleMoves.indexOf(move) === -1) {
             console.log("\nInvalid move! Please try again.\n");
         }
-    } while (possibleMoves.indexOf(cartesianMove) === -1);
+    } while (possibleMoves.indexOf(move) === -1);
 
-    cartesianMove = cartesianMove.split('');
+    move = move.split('');
 
-    board[parseInt(cartesianMove[1])][parseInt(cartesianMove[0])] = player;
+    board[parseInt(move[1])][parseInt(move[0])] = player;
 }
 
 export function makeAIMove(board, player) {
     let move = searchForBestMove(board, player);
     
     if (!move) {
-        console.warn("No best move found - making random move.");
+        console.warn("No move found - making random move.");
         move = getRandomMove(getPossibleMoves(board));
     }
     board[move[1]][move[0]] = player;

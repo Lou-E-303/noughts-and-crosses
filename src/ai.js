@@ -1,4 +1,5 @@
-import {getPossibleMoves, checkResult} from "./utils_game.js";
+import { getPossibleMoves, checkResult } from "./utils_game.js";
+import { scores } from "./constants.js";
 
 export function searchForBestMove(board, playerToken) {
     let bestScore = -Infinity;
@@ -8,9 +9,10 @@ export function searchForBestMove(board, playerToken) {
 
     for (let i = 0; i < possibleMoves.length; i++) {
         const move = possibleMoves[i].split('');
-        board[move[1]][move[0]] = playerToken; // Make the move
-        let score = minimax(board, 0, false);     // Call the minimax algorithm
-        board[move[1]][move[0]] = ' ';         // Unmake the move
+
+        board[move[1]][move[0]] = playerToken;
+        let score = minimax(board, 0, false);
+        board[move[1]][move[0]] = ' ';
 
         if (score > bestScore) {
             bestScore = score;
@@ -35,9 +37,11 @@ function minimax(board, depth, isMaximisingPlayer) {
 
         for (let i = 0; i < possibleMoves.length; i++) {
             const move = possibleMoves[i].split('');
-            board[move[1]][move[0]] = 'O';     // Make the move
-            let score = minimax(board, depth + 1, false); // Call the minimax algorithm
-            board[move[1]][move[0]] = ' ';     // Unmake the move
+
+            board[move[1]][move[0]] = 'O';
+            let score = minimax(board, depth + 1, false);
+            board[move[1]][move[0]] = ' ';
+
             bestScore = Math.max(score, bestScore);
         }
 
@@ -49,18 +53,13 @@ function minimax(board, depth, isMaximisingPlayer) {
 
         for (let i = 0; i < possibleMoves.length; i++) {
             const move = possibleMoves[i].split('');
-            board[move[1]][move[0]] = 'X';    // Make the move
-            let score = minimax(board, depth + 1, true); // Call the minimax algorithm
-            board[move[1]][move[0]] = ' ';    // Unmake the move
+
+            board[move[1]][move[0]] = 'X';
+            let score = minimax(board, depth + 1, true);
+            board[move[1]][move[0]] = ' ';
             bestScore = Math.min(score, bestScore);
         }
 
         return bestScore;
     }
 }
-
-const scores = {
-    "X": -10,
-    "O": 10,
-    " ": 0
-};
