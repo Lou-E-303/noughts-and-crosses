@@ -1,7 +1,7 @@
-import { getPossibleMoves, checkResult } from "./utils_game.js";
-import { scores } from "./constants.js";
+import { getPossibleMoves, checkResult } from "./utils_game";
+import { scores } from "./constants";
 
-export function searchForBestMove(board, playerToken) {
+export function searchForBestMove(board: string[][], playerToken: string) {
     let bestScore = -Infinity;
     let bestMove;
 
@@ -24,7 +24,7 @@ export function searchForBestMove(board, playerToken) {
     return bestMove;
 }
 
-function minimax(board, depth, isMaximisingPlayer) {
+function minimax(board: string[][], depth: number, isMaximisingPlayer: boolean) {
     const result = checkResult(board);
 
     if (result) {

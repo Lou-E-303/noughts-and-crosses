@@ -1,8 +1,8 @@
-export function displayBoard(board) {
+export function displayBoard(board: string[][]) {
     console.log("\n[" + board[0] + "]" + "\n" + "[" + board[1] + "]" + "\n" + "[" + board[2] + "]\n");
 }
 
-export function convertDecimalMoveToCartesian(decimalMove) {
+export function convertDecimalMoveToCartesian(decimalMove: string) {
     switch (decimalMove) {
         case "1":
             return "00";
@@ -22,7 +22,5 @@ export function convertDecimalMoveToCartesian(decimalMove) {
             return "12";
         case "9":
             return "22";
-        default:
-            return undefined;
     }
 }

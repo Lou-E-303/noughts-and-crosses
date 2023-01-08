@@ -1,4 +1,4 @@
-import { displayBoard } from "./utils_io.js";
+import { displayBoard } from "./utils_io";
 import {checkResult, generateEmptyBoard, makeHumanMove, makeAIMove, flipPlayer} from "./utils_game.js";
 
 let board = generateEmptyBoard();
@@ -6,7 +6,7 @@ let player = 'X';
 
 displayBoard(board);
 
-while (!("X O".includes(checkResult(board)))) {
+while (!("X O".includes(checkResult(board) || "NO RESULT"))) {
     if (player === 'X') {
         makeHumanMove(board, player);
     } else {
