@@ -1,76 +1,11 @@
 import promptSync from 'prompt-sync';
 import { searchForBestMove } from "./ai";
-import {convertDecimalMoveToCartesian} from "./utils_io";
+import { Board } from "./board";
 
 const prompt = promptSync();
 
-export function generateEmptyBoard() {
-    return [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']];
-}
-
-export function checkResult(board: string[][]) {
-
-    // Check Rows
-
-    for (let i = 0; i < board.length; i++) {
-        const setOfRows = new Set([board[i][0], board[i][1], board[i][2]]);
-        const [firstElementOfRowSet] = setOfRows;
-        if ((setOfRows.size === 1) && firstElementOfRowSet !== ' ') {
-            return firstElementOfRowSet;
-        }
-    }
-
-    // Check Columns
-
-    for (let i = 0; i < board.length; i++) {
-        const setOfCols = new Set([board[0][i], board[1][i], board[2][i]]);
-        const [firstElementOfColSet] = setOfCols;
-        if ((setOfCols.size === 1) && firstElementOfColSet !== ' ') {
-            return firstElementOfColSet;
-        }
-    }
-
-    // Check Diagonals
-
-    const setOfLeftDiags = new Set([board[0][0], board[1][1], board[2][2]]);
-    const [firstElementOfLeftDiagSet] = setOfLeftDiags;
-    if ((setOfLeftDiags.size === 1) && firstElementOfLeftDiagSet !== ' ') {
-        return firstElementOfLeftDiagSet;
-    }
-
-    const setOfRightDiags = new Set([board[0][2], board[1][1], board[2][0]]);
-    const [firstElementOfRightDiagSet] = setOfRightDiags;
-    if ((setOfRightDiags.size === 1) && firstElementOfRightDiagSet !== ' ') {
-        return firstElementOfRightDiagSet;
-    }
-
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[i].length; j++) {
-            if (board[i][j] === ' ') {
-                return undefined;
-            }
-        }
-    }
-
-    return ' ';
-}
-
-export function getPossibleMoves(board: string[][]) {
-    const possibleMoveList = [];
-
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[i].length; j++) {
-            if (board[i][j] === ' ') {
-                possibleMoveList.push(j.toString() + i.toString());
-            }
-        }
-    }
-
-    return possibleMoveList;
-}
-
-export function makeHumanMove(board: string[][], playerToken: string) {
-    const possibleMoves = getPossibleMoves(board);
+export function makeHumanMove(board: Board, playerToken: string) {
+    const possibleMoves = board.getPossibleMoves();
     let move;
 
     do {
@@ -83,19 +18,19 @@ export function makeHumanMove(board: string[][], playerToken: string) {
 
     move = move.split('');
 
-    board[parseInt(move[1])][parseInt(move[0])] = playerToken;
+    board.state[parseInt(move[1])][parseInt(move[0])] = playerToken;
 }
 
-export function makeAIMove(board: string[][], playerToken: string) {
+export function makeAIMove(board: Board, playerToken: string) {
     let move = searchForBestMove(board, playerToken);
     
     if (!move) {
         console.warn("No move found - making random move.");
-        move = getRandomMove(getPossibleMoves(board));
+        move = getRandomMove(board.getPossibleMoves());
     }
 
     if (move) {
-        board[move[1]][move[0]] = playerToken;
+        board.state[move[1]][move[0]] = playerToken;
     } else {
         return
     }
@@ -111,3 +46,27 @@ export function getRandomMove(possibleMoves: string[]) {
 export function flipPlayer(playerToken: string) {
     return (playerToken === 'X' ? 'O' : 'X');
 }
+
+export function convertDecimalMoveToCartesian(decimalMove: string) {
+    switch (decimalMove) {
+        case "1":
+            return "00";
+        case "2":
+            return "10";
+        case "3":
+            return "20";
+        case "4":
+            return "01";
+        case "5":
+            return "11";
+        case "6":
+            return "21";
+        case "7":
+            return "02";
+        case "8":
+            return "12";
+        case "9":
+            return "22";
+    }
+}
+

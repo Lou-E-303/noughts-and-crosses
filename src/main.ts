@@ -1,12 +1,12 @@
-import { displayBoard } from "./utils_io";
-import {checkResult, generateEmptyBoard, makeHumanMove, makeAIMove, flipPlayer} from "./utils_game.js";
+import { makeHumanMove, makeAIMove, flipPlayer } from "./utils_game";
+import { Board } from "./board";
 
-let board = generateEmptyBoard();
+let board = new Board(Board.generateNewBoard());
 let player = 'X';
 
-displayBoard(board);
+board.display();
 
-while (!("X O".includes(checkResult(board) || "NO RESULT"))) {
+while (!("X O".includes(board.checkResult() || "NO RESULT"))) {
     if (player === 'X') {
         makeHumanMove(board, player);
     } else {
@@ -14,10 +14,10 @@ while (!("X O".includes(checkResult(board) || "NO RESULT"))) {
     }
 
     player = flipPlayer(player);
-    displayBoard(board);
+    board.display()
 }
 
-switch (checkResult(board)) {
+switch (board.checkResult()) {
     case 'X':
         console.log(`Winner: X!`);
         break;

@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "node .",
-    "build": "tsc"
+    "build": "tsc",
+    "buildAndRun": "npm run build && npm start"
   }
 }
