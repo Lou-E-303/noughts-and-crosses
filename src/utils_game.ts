@@ -18,7 +18,7 @@ export function makeHumanMove(board: Board, playerToken: string) {
 
     move = move.split('');
 
-    board.state[parseInt(move[1])][parseInt(move[0])] = playerToken;
+    board.makeMove(move, playerToken);
 }
 
 export function makeAIMove(board: Board, playerToken: string) {
@@ -30,7 +30,7 @@ export function makeAIMove(board: Board, playerToken: string) {
     }
 
     if (move) {
-        board.state[move[1]][move[0]] = playerToken;
+        board.makeMove(move, playerToken);
     } else {
         return
     }

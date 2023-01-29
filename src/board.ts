@@ -1,5 +1,5 @@
 export class Board {
-    state: string[][];
+    private readonly state: string[][];
 
     constructor(initialState: string[][]) {
         this.state = initialState;
@@ -9,12 +9,8 @@ export class Board {
         console.log("\n[" + this.state[0] + "]" + "\n" + "[" + this.state[1] + "]" + "\n" + "[" + this.state[2] + "]\n");
     }
 
-    clear() {
-        this.state = Board.generateNewBoard();
-    }
-
-    makeMove() {
-        // TODO - rather than letting the driving code set the state directly
+    makeMove(move: string[], token: string) {
+        this.state[move[1]][move[0]] = token;
     }
 
     static generateNewBoard() {

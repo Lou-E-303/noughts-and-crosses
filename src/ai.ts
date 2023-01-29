@@ -10,9 +10,10 @@ export function searchForBestMove(board: Board, playerToken: string) {
     for (let i = 0; i < possibleMoves.length; i++) {
         const move = possibleMoves[i].split('');
 
-        board.state[move[1]][move[0]] = playerToken;
+        board.makeMove(move, playerToken);
+
         let score = minimax(board, 0, false);
-        board.state[move[1]][move[0]] = ' ';
+        board.makeMove(move, ' ');
 
         if (score > bestScore) {
             bestScore = score;
@@ -38,9 +39,9 @@ function minimax(board: Board, depth: number, isMaximisingPlayer: boolean) {
         for (let i = 0; i < possibleMoves.length; i++) {
             const move = possibleMoves[i].split('');
 
-            board.state[move[1]][move[0]] = 'O';
+            board.makeMove(move, 'O');
             let score = minimax(board, depth + 1, false);
-            board.state[move[1]][move[0]] = ' ';
+            board.makeMove(move, ' ');
 
             bestScore = Math.max(score, bestScore);
         }
@@ -54,9 +55,9 @@ function minimax(board: Board, depth: number, isMaximisingPlayer: boolean) {
         for (let i = 0; i < possibleMoves.length; i++) {
             const move = possibleMoves[i].split('');
 
-            board.state[move[1]][move[0]] = 'X';
+            board.makeMove(move, 'X');
             let score = minimax(board, depth + 1, true);
-            board.state[move[1]][move[0]] = ' ';
+            board.makeMove(move, ' ');
             bestScore = Math.min(score, bestScore);
         }
 
