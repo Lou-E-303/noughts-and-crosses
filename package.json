@@ -13,6 +13,6 @@
   "scripts": {
     "start": "node .",
     "build": "tsc",
-    "buildAndRun": "npm run build && npm start"
+    "buildAndStart": "npm run build && npm start"
   }
 }
