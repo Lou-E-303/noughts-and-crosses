@@ -7,5 +7,3 @@ Solving noughts & crosses (tic-tac-toe) in TypeScript using a depth-first minima
 ## Run
 
 Run `npm run buildAndStart`.
-
-[Trello Board](https://trello.com/b/r3TNFzdu/noughts-crosses)
